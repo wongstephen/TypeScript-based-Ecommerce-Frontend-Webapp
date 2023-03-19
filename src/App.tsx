@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 
-interface Product {
+type Product = {
   id: number;
   title: string;
   price: number;
@@ -13,10 +13,11 @@ interface Product {
   category: string;
   thumbnail: string;
   images: string[];
-}
+};
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [filterProducts, setFilterProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
@@ -36,11 +37,35 @@ function App() {
     }
   }
 
-  // useEffect(() => {
-  //   console.log(products);
-  // }, [products]);
+  function getCategories(products: Product[]): string[] {
+    const cat: Array<string> = products.map((product) => {
+      return product.category;
+    });
+    const uniqueCat: Set<string> = new Set([...cat]);
+    const result: Array<string> = [...uniqueCat];
+    return result;
+  }
 
-  getJson();
+  function setCategories(products: Product[], cat: string): void {
+    const filteredByCat = products.filter((product) => {
+      return product.category === cat;
+    });
+    setFilterProducts(() => {
+      return filteredByCat;
+    });
+  }
+
+  function clearCategories(): void {
+    return setFilterProducts(products);
+  }
+
+  useEffect(() => {
+    getJson();
+  }, []);
+
+  useEffect(() => {
+    setFilterProducts(products);
+  }, [products]);
 
   return (
     <div className="app">
@@ -55,23 +80,40 @@ function App() {
         </div>
         <nav></nav>
       </header>
-      <main>
-        {/* <section>
-          <picture>
-            <img
-              src="/assets/landing-desktop.gif"
-              className="welcome__image"
-              alt="Gear Guide Box"
-            />
-          </picture>
-        </section> */}
-        <section className="product-grid">
-          {products.length > 0 &&
-            products.map((product) => {
-              return <Card product={product} />;
+      {loading ? (
+        <p>loading</p>
+      ) : (
+        <main>
+          <section className="cat">
+            <p className="cat-filter">Filter categories:</p>
+            {getCategories(products).map((product: string, idx) => {
+              return (
+                <button
+                  key={product + idx}
+                  className="cat-filter"
+                  id={product}
+                  onClick={() => setCategories(products, product)}
+                >
+                  {product}
+                </button>
+              );
             })}
-        </section>
-      </main>
+            <button
+              className="cat-filter"
+              id="clear-btn"
+              onClick={clearCategories}
+            >
+              Clear Filter
+            </button>
+          </section>
+          <section className="product-grid">
+            {filterProducts.length > 0 &&
+              filterProducts.map((product: Product) => {
+                return <Card product={product} key={product.id} />;
+              })}
+          </section>
+        </main>
+      )}
       <footer></footer>
     </div>
   );
@@ -83,8 +125,7 @@ const Card = ({ product }) => {
   return (
     <div className="card">
       <picture>
-        <source srcSet={product.images[0]} media="(min-width: 400px)" />
-        <img src={product.images[1]} className="card__image" />
+        <img src={product.images[0]} className="card__image" />
       </picture>
       <div className="card__content">
         <h2 className="card__title">
