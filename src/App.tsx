@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import { Product } from "./Interfaces";
 import { useAxios } from "./hooks/useAxios";
 import Categories from "./components/Categories";
+import Search from "./components/Search";
 interface Data {
   response: Product[];
   loading: boolean;
@@ -16,7 +17,7 @@ function App(): ReactElement {
   const [filterProducts, setFilterProducts] = useState<Product[]>([]);
 
   const { response: products, loading, error }: Data = useAxios();
-  
+
   return (
     <div className="app">
       <Header />
@@ -26,6 +27,7 @@ function App(): ReactElement {
         </div>
       ) : (
         <main>
+          <Search products={products} setFilterProducts={setFilterProducts} />
           <Categories
             products={products}
             setFilterProducts={setFilterProducts}

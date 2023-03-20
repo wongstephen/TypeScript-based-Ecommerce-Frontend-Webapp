@@ -7,17 +7,18 @@ export const useAxios = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("false");
 
-  const [num, setNum] = useState(1);
-  useEffect(() => {
-    console.log(num), [num];
-  });
+  // todo test how many times data gets pulled. delete later
+  //   const [num, setNum] = useState(1);
+  //   useEffect(() => {
+  //     console.log(num), [num];
+  //   });
+  //  useEffect(() => console.log(response), [response]);
 
-  useEffect(() => console.log(response), [response]);
   useEffect(() => {
     const controller = new AbortController();
     async function fetchData(): Promise<void> {
       try {
-        setNum((prev) => prev++);
+        // setNum((prev) => prev++);
         const res = await axios.get("https://dummyjson.com/products", {
           signal: controller.signal,
         });
