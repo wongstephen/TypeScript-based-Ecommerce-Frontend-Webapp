@@ -1,117 +1,36 @@
-import { useEffect, useState } from "react";
+import { FC, ReactElement, useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
+import ProductGrid from "./components/ProductGrid";
+import Header from "./components/Header";
+import { Product } from "./Interfaces";
+import { useAxios } from "./hooks/useAxios";
+import Categories from "./components/Categories";
+interface Data {
+  response: Product[];
+  loading: boolean;
+  error: string;
+}
 
-type Product = {
-  id: number;
-  title: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  brand: string;
-  category: string;
-  thumbnail: string;
-  images: string[];
-};
-
-function App() {
-  const [products, setProducts] = useState<Product[]>([]);
+function App(): ReactElement {
   const [filterProducts, setFilterProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
 
-  async function getJson(): Promise<void> {
-    try {
-      setLoading(true);
-      const res = await axios.get("https://dummyjson.com/products");
-      const data: Product[] = res.data.products;
-      setProducts(() => {
-        return data;
-      });
-    } catch (err) {
-      setError(true);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  function getCategories(products: Product[]): string[] {
-    const cat: Array<string> = products.map((product) => {
-      return product.category;
-    });
-    const uniqueCat: Set<string> = new Set([...cat]);
-    const result: Array<string> = [...uniqueCat];
-    return result;
-  }
-
-  function setCategories(products: Product[], cat: string): void {
-    const filteredByCat = products.filter((product) => {
-      return product.category === cat;
-    });
-    setFilterProducts(() => {
-      return filteredByCat;
-    });
-  }
-
-  function clearCategories(): void {
-    return setFilterProducts(products);
-  }
-
-  useEffect(() => {
-    getJson();
-  }, []);
-
-  useEffect(() => {
-    setFilterProducts(products);
-  }, [products]);
-
+  const { response: products, loading, error }: Data = useAxios();
+  
   return (
     <div className="app">
-      <header>
-        <div className="header__logo">
-          <img
-            src="/assets/open-box-small.gif"
-            alt="open box"
-            className="header__image"
-          />
-          <h1 className="header__title">gearguide</h1>
-        </div>
-        <nav></nav>
-      </header>
+      <Header />
       {loading ? (
-        <p>loading</p>
+        <div className="loading-div">
+          <img src="./assets/throbber.gif" alt="loading" />
+        </div>
       ) : (
         <main>
-          <section className="cat">
-            <p className="cat-filter">Filter categories:</p>
-            {getCategories(products).map((product: string, idx) => {
-              return (
-                <button
-                  key={product + idx}
-                  className="cat-filter"
-                  id={product}
-                  onClick={() => setCategories(products, product)}
-                >
-                  {product}
-                </button>
-              );
-            })}
-            <button
-              className="cat-filter"
-              id="clear-btn"
-              onClick={clearCategories}
-            >
-              Clear Filter
-            </button>
-          </section>
-          <section className="product-grid">
-            {filterProducts.length > 0 &&
-              filterProducts.map((product: Product) => {
-                return <Card product={product} key={product.id} />;
-              })}
-          </section>
+          <Categories
+            products={products}
+            setFilterProducts={setFilterProducts}
+          />
+          <ProductGrid filterProducts={filterProducts} />
         </main>
       )}
       <footer></footer>
@@ -120,23 +39,10 @@ function App() {
 }
 
 export default App;
-
-const Card = ({ product }) => {
-  return (
-    <div className="card">
-      <picture>
-        <img src={product.images[0]} className="card__image" />
-      </picture>
-      <div className="card__content">
-        <h2 className="card__title">
-          {product.title} <span className="card__price">${product.price}</span>
-        </h2>
-        <p className="card__description">{product.description}</p>
-      </div>
-    </div>
-  );
-};
-
 {
   /* <a href="https://www.flaticon.com/free-icons/box" title="box icons">Box icons created by Freepik - Flaticon</a> */
+
+  {
+    /* <a href="https://www.freepik.com/free-vector/happy-people-run-store-sale-black-friday_30538731.htm#query=shopping&position=29&from_view=search&track=sph">Image by upklyak</a> on Freepik */
+  }
 }
