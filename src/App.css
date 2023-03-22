@@ -347,11 +347,15 @@ section.product-grid {
   order: 2;
   gap: 2rem;
 }
-
+.modal__price {
+  font-size: 2rem;
+}
 .modal__button-cart__container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 }
 
 .modal__title {
@@ -404,7 +408,7 @@ section.product-grid {
   font-weight: 700;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 900px) {
   .modal__container {
     top: 50%;
     left: 50%;
