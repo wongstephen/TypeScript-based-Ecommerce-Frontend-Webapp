@@ -3,13 +3,19 @@ import { Product } from "../Interfaces";
 
 interface Props {
   product: Product;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalData: React.Dispatch<React.SetStateAction<Product>>;
 }
 
-export const ProductCard = ({ product }: Props) => {
+export const ProductCard = ({ product, setShowModal, setModalData }: Props) => {
+  function handleClick(): void {
+    setShowModal(() => true);
+    setModalData(() => product);
+  }
   return (
-    <div className="card">
+    <div className="card" onClick={handleClick}>
       <picture>
-        <img src={product.images[0]} className="card__image" />
+        <img src={product.thumbnail} className="card__image" />
       </picture>
       <div className="card__content">
         <h2 className="card__title">

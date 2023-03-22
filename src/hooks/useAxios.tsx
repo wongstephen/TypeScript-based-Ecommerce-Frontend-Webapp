@@ -18,6 +18,7 @@ export const useAxios = () => {
     const controller = new AbortController();
     async function fetchData(): Promise<void> {
       try {
+        console.log("API called");
         // setNum((prev) => prev++);
         const res = await axios.get("https://dummyjson.com/products", {
           signal: controller.signal,

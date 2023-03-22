@@ -7,6 +7,10 @@ import { Product } from "./Interfaces";
 import { useAxios } from "./hooks/useAxios";
 import Categories from "./components/Categories";
 import Search from "./components/Search";
+import ShoppingCartContextProvider, {
+  ShoppingCartContext,
+} from "./context/ShoppingCartContext";
+
 interface Data {
   response: Product[];
   loading: boolean;
@@ -19,24 +23,26 @@ function App(): ReactElement {
   const { response: products, loading, error }: Data = useAxios();
 
   return (
-    <div className="app">
-      <Header />
-      {loading ? (
-        <div className="loading-div">
-          <img src="./assets/throbber.gif" alt="loading" />
-        </div>
-      ) : (
-        <main>
-          <Search products={products} setFilterProducts={setFilterProducts} />
-          <Categories
-            products={products}
-            setFilterProducts={setFilterProducts}
-          />
-          <ProductGrid filterProducts={filterProducts} />
-        </main>
-      )}
-      <footer></footer>
-    </div>
+    <ShoppingCartContextProvider>
+      <div className="app">
+        <Header />
+        {loading ? (
+          <div className="loading-div">
+            <img src="./assets/throbber.gif" alt="loading" />
+          </div>
+        ) : (
+          <main>
+            <Search products={products} setFilterProducts={setFilterProducts} />
+            <Categories
+              products={products}
+              setFilterProducts={setFilterProducts}
+            />
+            <ProductGrid filterProducts={filterProducts} />
+          </main>
+        )}
+        <footer></footer>
+      </div>
+    </ShoppingCartContextProvider>
   );
 }
 
