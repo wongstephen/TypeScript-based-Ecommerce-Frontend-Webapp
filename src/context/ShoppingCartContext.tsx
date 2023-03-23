@@ -2,16 +2,17 @@ import React, { createContext, useEffect, useState } from "react";
 
 export const ShoppingCartContext = createContext(null);
 
+interface ShoppingCartItem {
+  title: string;
+  quantity: number;
+  price: number;
+}
 export interface ShoppingCart {
-  id: {
-    title: string;
-    quantity: number;
-    price: number;
-  };
+  [key: number]: ShoppingCartItem;
 }
 
 const ShoppingCartContextProvider = ({ children }) => {
-  const [shoppingCart, setShoppingCart] = useState({});
+  const [shoppingCart, setShoppingCart] = useState<ShoppingCart>({});
 
   // useEffect(() => console.log(shoppingCart), [shoppingCart]);
 

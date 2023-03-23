@@ -1,11 +1,17 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import useShoppingCartContext from "../hooks/useShoppingCartContext";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import { ShoppingCart } from "../context/ShoppingCartContext";
 
-const Header = () => {
-  const { shoppingCart } = useShoppingCartContext();
+interface Cart {
+  shoppingCart: ShoppingCart;
+}
+
+const Header = (): ReactElement => {
+  const { shoppingCart }: Cart = useShoppingCartContext();
+  const navigate: NavigateFunction = useNavigate();
 
   function countCart(): number {
-    // console.log(shoppingCart);
     const cartItems = Object.keys(shoppingCart);
     if (cartItems.length > 0) {
       return cartItems
@@ -19,7 +25,7 @@ const Header = () => {
   return (
     <>
       <header>
-        <div className="header__logo">
+        <div className="header__logo" onClick={() => navigate("/")}>
           <img
             src="/assets/open-box-small.gif"
             alt="open box"
@@ -28,7 +34,10 @@ const Header = () => {
           <h1 className="header__title">gearguide</h1>
         </div>
         {/* <nav></nav> */}
-        <div className="header__shopping-container">
+        <div
+          className="header__shopping-container"
+          onClick={() => navigate("/cart")}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
