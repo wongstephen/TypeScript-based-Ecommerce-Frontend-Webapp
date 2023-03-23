@@ -95,6 +95,7 @@ body {
   max-width: 100rem;
   margin-inline: auto;
   padding-inline: 2rem;
+  padding-bottom: 4rem;
 }
 header {
   padding-top: 1rem;
@@ -390,13 +391,13 @@ section.product-grid {
 .modal__image-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  /* grid-template-rows: repeat(4, 1fr); */
+
   gap: 0.5rem;
   cursor: pointer;
 }
 
 .modal__image > * {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1.25 / 1;
   object-fit: cover;
 }
 
@@ -448,6 +449,24 @@ section.product-grid {
   .modal__content-grid {
     order: unset;
   }
+}
+
+/* footer */
+
+footer {
+  padding: 3rem;
+  margin-top: 2rem;
+  border-radius: 1rem;
+  background-color: #222222;
+}
+footer p {
+  font-family: "Inter", sans-serif;
+  color: #f1f1f1;
+  font-size: 0.75rem;
+  text-align: center;
+  letter-spacing: 1px;
+  line-height: 0;
+  padding: 0;
 }
 
 /* utils */
