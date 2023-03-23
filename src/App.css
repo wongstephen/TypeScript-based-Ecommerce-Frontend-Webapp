@@ -132,6 +132,29 @@ h1.header__title {
   height: 2rem;
 }
 
+.header__shopping-container {
+  position: relative;
+}
+.header__shopping-num {
+  position: absolute;
+  background-color: red;
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Epilogue", sans-serif;
+  color: white;
+  bottom: 0;
+  font-size: 0.75rem;
+}
+.header__shopping-num > p {
+  position: relative;
+  top: 2px;
+}
+
 main {
   margin-top: 2rem;
   position: relative;
@@ -152,18 +175,6 @@ section.seach {
   border-radius: 0.25rem;
   margin-bottom: 1rem;
 }
-
-/* #clearSearch {
-  position: relative;
-  right: 40px;
-  margin: auto;
-  border: 0;
-  background-color: transparent;
-  font-weight: 700;
-  font-family: "Inter", sans-serif;
-  font-size: 0.75rem;
-  margin-top: 0.75rem;
-} */
 
 /* cat filter */
 section.cat {
@@ -223,6 +234,7 @@ section.product-grid {
   box-shadow: 0 0.25rem 1rem rgb(0, 0, 0, 0.1);
   min-height: 10rem;
   border-radius: 0 0 0.5rem 0.5rem;
+  line-height: 160%;
 }
 .card__title {
   font-size: 1rem;
@@ -298,7 +310,7 @@ section.product-grid {
 }
 .modal__container {
   position: fixed;
-  background: white;
+  background: #f2f2f2;
   position: relative;
   padding: 1rem;
   border-radius: 0.5rem;
@@ -350,13 +362,6 @@ section.product-grid {
 .modal__price {
   font-size: 2rem;
 }
-.modal__button-cart__container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
 
 .modal__title {
   font-size: clamp(2rem, calc(5vw + 1rem), 3rem);
@@ -401,11 +406,33 @@ section.product-grid {
   cursor: auto;
 }
 
+.modal__button-cart__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
 .modal__button-cart {
-  padding: 1rem 2rem;
+  padding: 20px 40px;
   border: none;
-  border-radius: 1rem;
-  font-weight: 700;
+  border-radius: 100rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #006ef3;
+  color: white;
+  letter-spacing: 0.1em;
+  line-height: 100%;
+}
+.modal__button-cart:hover {
+  background-color: #006ef375;
+  color: black;
+}
+.modal__button-cart:active {
+  background-color: #006ef350;
+  color: black;
 }
 
 @media screen and (min-width: 900px) {

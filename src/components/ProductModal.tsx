@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Product } from "../Interfaces";
+import useShoppingCartContext from "../hooks/useShoppingCartContext";
+import { ShoppingCart } from "../context/ShoppingCartContext";
 
 interface Props {
   showModal: boolean;
@@ -36,6 +38,8 @@ const starRating = (rating: number): string[] => {
 const ProductModal = ({ showModal, setShowModal, modalData }: Props) => {
   const [featureImage, setFeatureImage] = useState<string>();
 
+  const { setShoppingCart } = useShoppingCartContext();
+
   function closeModal(e: React.MouseEvent): void {
     setShowModal(() => false);
   }
@@ -45,16 +49,29 @@ const ProductModal = ({ showModal, setShowModal, modalData }: Props) => {
     [modalData]
   );
 
-  function handleCartClick(): void {
-    console.log("click");
-    // setShoppingCart((prev: ShoppingCart) => {
-    //   if (prev[modalData.id]) {
-    //     const newQuantity = prev[modalData.id].quantity++;
-    //     return (prev[modalData.id].quantity = newQuantity);
-    //   } else {
-    //     return [...prev, { id: modalData.id, quantity: 1 }];
-    //   }
-    // });
+  function handleCartClick(id: number): void {
+    setShoppingCart((prev: ShoppingCart) => {
+      if (prev[id]) {
+        let qty = prev[id].quantity + 1;
+
+        return {
+          ...prev,
+          [id]: {
+            ...prev[id],
+            quantity: qty,
+          },
+        };
+      } else {
+        return {
+          ...prev,
+          [id]: {
+            quantity: 1,
+            price: modalData.price,
+            title: modalData.title,
+          },
+        };
+      }
+    });
   }
 
   if (modalData) {
@@ -102,7 +119,13 @@ const ProductModal = ({ showModal, setShowModal, modalData }: Props) => {
                 <button
                   className="modal__button-cart"
                   aria-label="add product to cart"
-                  onClick={handleCartClick}
+                  onClick={() => {
+                    handleCartClick(modalData.id);
+                    setShowModal(() => {
+                      return false;
+                    });
+                  }}
+                  // onClick={handleCartClick}
                 >
                   Add to Cart
                 </button>
