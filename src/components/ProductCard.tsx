@@ -1,27 +1,33 @@
 import React from "react";
 import { Product } from "../Interfaces";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 interface Props {
   product: Product;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setModalData: React.Dispatch<React.SetStateAction<Product>>;
 }
 
-export const ProductCard = ({ product, setShowModal, setModalData }: Props) => {
+export const ProductCard = ({ product }: Props) => {
+  const navigate: NavigateFunction = useNavigate();
+
   function handleClick(): void {
-    setShowModal(() => true);
-    setModalData(() => product);
+    navigate(`/product/${product.title}-${product.id}`);
   }
   return (
-    <div className="card" onClick={handleClick}>
-      <picture>
-        <img src={product.thumbnail} className="card__image" />
-      </picture>
-      <div className="card__content">
-        <h2 className="card__title">
-          {product.title} <span className="card__price">${product.price}</span>
-        </h2>
-        <p className="card__description">{product.description}</p>
+    <div className="card__overlay" onClick={handleClick}>
+      <div className="card">
+        <picture>
+          <img src={product.thumbnail} className="card__image" />
+        </picture>
+        <div className="card__content">
+          <p className="card__category">{product.category}</p>
+          <h2 className="card__title">
+            {product.brand} - {product.title}
+          </h2>
+          <p className="card__price">${product.price}</p>
+        </div>
+      </div>
+      <div className="card__overlay__container">
+        <p>View Item</p>
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import useShoppingCartContext from "../hooks/useShoppingCartContext";
 
 const Cart = (): ReactElement => {
   const { shoppingCart } = useShoppingCartContext();
-  console.log(shoppingCart);
 
   function getShoppingItems(): string {
     if (Object.keys(shoppingCart).length > 0) {

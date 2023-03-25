@@ -4,6 +4,7 @@ import Categories from "./Categories";
 import ProductGrid from "./ProductGrid";
 import { useAxios } from "../hooks/useAxios";
 import { Product } from "../Interfaces";
+import HeaderBanner from "./HeaderBanner";
 
 interface Data {
   response: Product[];
@@ -22,6 +23,7 @@ const HomeLayout = () => {
     </div>
   ) : (
     <main>
+      <HeaderBanner />
       <Search products={products} setFilterProducts={setFilterProducts} />
       <Categories products={products} setFilterProducts={setFilterProducts} />
       <ProductGrid filterProducts={filterProducts} />

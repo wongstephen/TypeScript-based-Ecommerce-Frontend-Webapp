@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Product } from "../Interfaces";
 import axios from "axios";
+import useProductContext from "./useProductContext";
 
 export const useAxios = () => {
   const [response, setResponse] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("false");
+  const { setProducts } = useProductContext();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -16,6 +18,9 @@ export const useAxios = () => {
         });
         const data: Product[] = res.data.products;
         setResponse(() => {
+          return data;
+        });
+        setProducts(() => {
           return data;
         });
         return controller.abort();

@@ -6,8 +6,10 @@ import Footer from "./Footer";
 const Layout = (): ReactElement => {
   return (
     <div className="app">
-      <Header />
-      <Outlet />
+      <div>
+        <Header />
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

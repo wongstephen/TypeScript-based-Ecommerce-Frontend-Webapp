@@ -8,16 +8,21 @@ import ShoppingCartContextProvider from "./context/ShoppingCartContext";
 import HomeLayout from "./components/HomeLayout";
 import Cart from "./components/Cart";
 import Layout from "./components/Layout";
+import ProductDetail from "./components/ProductDetail";
+import ProductProvider from "./context/ProductContext";
 
 function App(): ReactElement {
   return (
     <ShoppingCartContextProvider>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<HomeLayout />} />
-          <Route path="/cart" element={<Cart />} />
-        </Route>
-      </Routes>
+      <ProductProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/" element={<HomeLayout />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+          </Route>
+        </Routes>
+      </ProductProvider>
     </ShoppingCartContextProvider>
   );
 }

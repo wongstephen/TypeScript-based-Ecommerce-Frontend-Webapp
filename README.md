@@ -31,3 +31,5 @@ Gearguide is a e-commerce website app built with React and TypeScript. It utiliz
 ## Credits
 
 This app was created by Stephen Wong as a project for to demonstrate React Library with Typscript and reponsiveness.
+
+<a href="https://www.freepik.com/free-photo/young-satisfied-woman-winning-prize-celebrating-making-fist-pump-screaming-joy-triumphing-white-wall_18405686.htm#query=cheering%20person&position=16&from_view=search&track=ais">Image by cookie_studio</a> on Freepik

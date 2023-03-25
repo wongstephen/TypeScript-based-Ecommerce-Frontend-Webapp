@@ -59,13 +59,6 @@ const Header = (): ReactElement => {
           )}
         </div>
       </header>
-      <picture className="header__banner">
-        <source
-          srcSet="/assets/desktop-banner.png"
-          media="(min-width: 700px)"
-        />
-        <img className="header__banner" src="/assets/mobile-banner.png" />
-      </picture>
     </>
   );
 };
