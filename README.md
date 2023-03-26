@@ -23,6 +23,10 @@ Gearguide is a e-commerce website app built with React and TypeScript. It utiliz
 - Install dependencies: npm install
 - Start the development server: npm run dev
 
+## Future Features
+
+Backend CMS
+
 ## Usage
 
 - Open the app in your browser at http://localhost:5173/ or https://gearguide.netlify.app/
