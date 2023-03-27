@@ -1,36 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useProductContext from "../hooks/useProductContext";
 import { Product } from "../Interfaces";
 import useShoppingCartContext from "../hooks/useShoppingCartContext";
 import { ShoppingCart } from "../context/ShoppingCartContext";
-
+import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import useAxios from "../hooks/useAxios";
 interface Props {
   products: Product[];
 }
 const ProductDetail = () => {
-  const [featured, setFeatured] = useState<string>("");
+  const [featured, setFeatured] = useState<string>("productDetail.images[0]");
   const [quantity, setQuantity] = useState<number>(1);
   const { products }: Props = useProductContext();
+  const [productDetail, setProductDetail] = useState<Product | null>(null);
   const { id } = useParams();
   const { setShoppingCart } = useShoppingCartContext();
 
   const propId: string = id.slice(id.lastIndexOf("-") + 1);
 
-  useEffect(() => {
-    setFeatured(() => product[0].images[0]);
-  }, []);
+  // useEffect(() => console.log(productDetail), [productDetail]);
 
-  function getProductDetails(): Product[] {
-    return products.filter((product) => {
-      return product.id.toString() === propId;
-    });
+  interface axiosType {
+    refetch: () => void;
+    loading: boolean;
   }
-  const product = getProductDetails();
+  const { refetch }: axiosType = useAxios();
+
+  useEffect(() => {
+    setProductDetail(() => {
+      const [ojb] = products.filter((item) => {
+        return item.id.toString() === propId.toString();
+      });
+      return ojb;
+    });
+  }, [products]);
+
+  useEffect(() => {
+    setFeatured(() => {
+      return productDetail?.images[0];
+    });
+  }, [productDetail]);
 
   function handleFeatureClick(idx: number): void {
-    setFeatured(() => product[0].images[idx]);
+    setFeatured(() => productDetail.images[idx]);
   }
+
   function handleQuantityClick(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void {
@@ -62,71 +77,91 @@ const ProductDetail = () => {
           ...prev,
           [id]: {
             quantity: quantity,
-            price: product[0].price,
-            title: product[0].title,
+            price: productDetail.price,
+            title: productDetail.title,
           },
         };
       }
     });
   }
 
-  return (
-    <div className="detail__container">
-      <div className="detail__image__container">
-        <div className="detail__image-feature detail__image ">
-          <img src={featured} alt="featured image" />
+  if (!productDetail) {
+    return <div>loading</div>;
+  } else {
+    return (
+      <div className="detail__container">
+        <div className="detail__image__container">
+          <div className="detail__image-feature detail__image ">
+            <img src={featured} alt="featured image" />
+          </div>
+          {productDetail &&
+            productDetail.images.length > 1 &&
+            productDetail.images.map((image, idx) => {
+              return (
+                <div
+                  key={image + idx}
+                  className={`detail__image ${`modal__detail` + idx}`}
+                  onClick={() => handleFeatureClick(idx)}
+                >
+                  <img src={image} alt={image + " " + idx} />
+                </div>
+              );
+            })}
         </div>
-        {product[0].images.length > 1 &&
-          product[0].images.map((image, idx) => {
-            return (
-              <div
-                key={image + idx}
-                className={`detail__image ${`modal__detail` + idx}`}
-                onClick={() => handleFeatureClick(idx)}
-              >
-                <img src={image} alt={image + " " + idx} />
-              </div>
-            );
-          })}
-      </div>
-      <div className="detail__content">
-        <p className="detail__category">Home / {product[0].category}</p>
-        <h2 className="detail__title">
-          {product[0].brand} {product[0].title}
-        </h2>
-        <hr className="detail__line" />
-        <p className="detail__price">
-          <span>$</span>
-          {product[0].price}
-        </p>
-        <p className="detail__desc">{product[0].description}</p>
-        <div className="detail__container-qty">
-          <button
-            className="detail__button-qty"
-            name="minus"
-            onClick={handleQuantityClick}
-          >
-            -
+        <div className="detail__content">
+          <p className="detail__category">
+            <Link to="/">Home</Link> / {productDetail.category}
+          </p>
+          <h2 className="detail__title">
+            {productDetail.brand} {productDetail.title}
+          </h2>
+          <hr className="detail__line" />
+          <p className="detail__price">
+            <span>$</span>
+            {productDetail.price}
+          </p>
+          <p className="detail__desc">{productDetail.description}</p>
+          <div className="detail__container-qty">
+            <button
+              className="detail__button-qty"
+              name="minus"
+              onClick={handleQuantityClick}
+            >
+              -
+            </button>
+            <input
+              className="detail_input-qty"
+              defaultValue={quantity}
+              type="text"
+            ></input>
+            <button
+              className="detail__button-qty"
+              name="add"
+              onClick={handleQuantityClick}
+            >
+              +
+            </button>
+          </div>
+
+          <button className="detail__button-cart" onClick={handleCartClick}>
+            Add to Cart
           </button>
-          <input
-            className="detail_input-qty"
-            value={quantity}
-            type="number"
-          ></input>
-          <button
-            className="detail__button-qty"
-            name="add"
-            onClick={handleQuantityClick}
-          >
-            +
-          </button>
+          <hr className="detail__line" />
+          <div className="social__container">
+            <button className="social__icon social__icon-fb">
+              <FaFacebookF />
+            </button>
+            <button className="social__icon social__icon-ig">
+              <FaInstagram />
+            </button>
+            <button className="social__icon social__icon-tw">
+              <FaTwitter />
+            </button>
+          </div>
         </div>
-        <button className="detail__button-cart" onClick={handleCartClick}>
-          Add to Cart
-        </button>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default ProductDetail;

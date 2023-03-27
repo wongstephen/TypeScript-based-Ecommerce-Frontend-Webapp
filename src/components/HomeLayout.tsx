@@ -1,21 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Search from "./Search";
 import Categories from "./Categories";
 import ProductGrid from "./ProductGrid";
-import { useAxios } from "../hooks/useAxios";
+import useAxios from "../hooks/useAxios";
 import { Product } from "../Interfaces";
 import HeaderBanner from "./HeaderBanner";
+import useProductContext from "../hooks/useProductContext";
 
-interface Data {
+// interface Data {
+//   response: Product[];
+//   loading: boolean;
+//   error: string;
+// }
+
+interface Axios {
   response: Product[];
   loading: boolean;
   error: string;
+  refetch: () => void;
 }
 
 const HomeLayout = () => {
   const [filterProducts, setFilterProducts] = useState<Product[]>([]);
+  const { products } = useProductContext();
 
-  const { response: products, loading, error }: Data = useAxios();
+  const { response, loading }: Axios = useAxios();
 
   return loading ? (
     <div className="loading-div">

@@ -5,7 +5,7 @@ const HeaderBanner = () => {
     <div className="header__banner">
       <img
         className="header__banner"
-        src="/assets/female-friends-out-shopping-together.jpg"
+        src="/assets/female-friends-out-shopping-together-desktop.jpg"
       />
 
       <div className="header__content">
