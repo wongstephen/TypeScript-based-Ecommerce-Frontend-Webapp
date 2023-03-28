@@ -62,20 +62,20 @@ const ProductDetail = () => {
 
   function handleCartClick(): void {
     setShoppingCart((prev: ShoppingCart) => {
-      if (prev[id]) {
+      if (prev[propId]) {
         let qty = prev[id].quantity + quantity;
 
         return {
           ...prev,
-          [id]: {
-            ...prev[id],
+          [propId]: {
+            ...prev[propId],
             quantity: qty,
           },
         };
       } else {
         return {
           ...prev,
-          [id]: {
+          [propId]: {
             quantity: quantity,
             price: productDetail.price,
             title: productDetail.title,
@@ -100,7 +100,9 @@ const ProductDetail = () => {
               return (
                 <div
                   key={image + idx}
-                  className={`detail__image ${`modal__detail` + idx} detail__modal`}
+                  className={`detail__image ${
+                    `modal__detail` + idx
+                  } detail__modal`}
                   onClick={() => handleFeatureClick(idx)}
                 >
                   <img src={image} alt={image + " " + idx} />

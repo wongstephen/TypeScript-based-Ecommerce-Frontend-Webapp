@@ -609,3 +609,117 @@ footer p {
   position: absolute;
   width: 1px;
 }
+
+.cart {
+  max-width: 80rem;
+  margin-inline: auto;
+  font-family: "Inter", sans-serif;
+  margin-top: 4rem;
+}
+
+.cart h2 {
+  font-size: 2.25rem;
+  padding-inline: 0.5rem;
+}
+
+.cart-items__container {
+  margin: 2rem 0.5rem;
+  font-size: 0.8rem;
+  border: 2px solid #cccccc;
+  max-width: 60rem;
+}
+.cart__image,
+.cart__image-placeholder {
+  display: none;
+  max-width: 4rem;
+}
+.cart__image-placeholder {
+  width: 4rem;
+}
+
+.cart__item {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1fr 1fr;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+}
+.cart__item:first-child {
+  font-weight: 600;
+  border: 2px solid #f2f2f2;
+  background-color: #f2f2f2;
+  border-bottom: 2px solid #cccccc;
+}
+.cart__totals {
+  border: 2px solid #cccccc;
+  margin: 2rem 0.5rem;
+  padding: 2rem 0;
+  font-size: 0.8rem;
+}
+.cart__totals div {
+  display: flex;
+  justify-content: space-between;
+}
+.cart__totals p {
+  padding: 0.5rem;
+}
+
+.cart__totals div:nth-child(3) {
+  background-color: #f2f2f2;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.cart__totals div:last-child {
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.cart__totals button {
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  border: none;
+  flex-grow: 1;
+  flex-basis: 1;
+  text-transform: uppercase;
+  color: #f2f2f2;
+}
+.cart__totals button:first-child {
+  background-color: rgb(82, 82, 242);
+}
+.cart__totals button:last-child {
+  background-color: rgb(6, 169, 0);
+}
+@media screen and (min-width: 400px) {
+  .cart__item {
+    display: grid;
+    grid-template-columns: 5rem 2fr 1fr 1fr 1fr;
+  }
+  .cart__image,
+  .cart__image-placeholder {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 60rem) {
+  .cart {
+    max-width: 100rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cart h2 {
+    flex-basis: 100%;
+    margin-inline: auto;
+  }
+  .cart__item {
+    min-width: 40rem;
+  }
+  .cart__totals {
+    min-width: 25rem;
+  }
+}

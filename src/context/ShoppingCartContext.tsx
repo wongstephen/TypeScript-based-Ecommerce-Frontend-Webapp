@@ -8,7 +8,7 @@ interface ShoppingCartItem {
   price: number;
 }
 export interface ShoppingCart {
-  [key: number]: ShoppingCartItem;
+  [key: string]: ShoppingCartItem;
 }
 
 const ShoppingCartContextProvider = ({ children }) => {
