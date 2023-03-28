@@ -461,6 +461,9 @@ section.product-grid {
   aspect-ratio: 1 / 1;
   object-fit: contain;
 }
+.detail__modal {
+  cursor: pointer;
+}
 
 .detail__content {
   font-family: "Inter", sans-serif;

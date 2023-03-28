@@ -23,7 +23,6 @@ interface Axios {
 const HomeLayout = () => {
   const [filterProducts, setFilterProducts] = useState<Product[]>([]);
   const { products } = useProductContext();
-
   const { response, loading }: Axios = useAxios();
 
   return loading ? (

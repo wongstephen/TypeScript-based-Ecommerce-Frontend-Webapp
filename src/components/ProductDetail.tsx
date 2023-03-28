@@ -100,7 +100,7 @@ const ProductDetail = () => {
               return (
                 <div
                   key={image + idx}
-                  className={`detail__image ${`modal__detail` + idx}`}
+                  className={`detail__image ${`modal__detail` + idx} detail__modal`}
                   onClick={() => handleFeatureClick(idx)}
                 >
                   <img src={image} alt={image + " " + idx} />
@@ -131,7 +131,9 @@ const ProductDetail = () => {
             </button>
             <input
               className="detail_input-qty"
-              defaultValue={quantity}
+              value={quantity}
+              aria-readonly
+              readOnly
               type="text"
             ></input>
             <button
