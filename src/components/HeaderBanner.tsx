@@ -14,7 +14,7 @@ const HeaderBanner = () => {
           <p className="header__content__sale-description">
             Deals Up To 60% Retail Price
           </p>
-          <button className="header__banner__button">Shop Now</button>
+          {/* <button className="header__banner__button">Shop Now</button> */}
         </div>
       </div>
     </div>

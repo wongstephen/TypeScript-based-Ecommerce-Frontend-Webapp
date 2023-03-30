@@ -620,6 +620,7 @@ footer p {
 .cart h2 {
   font-size: 2.25rem;
   padding-inline: 0.5rem;
+  text-align: center;
 }
 
 .cart-items__container {
@@ -693,6 +694,12 @@ footer p {
 }
 .cart__totals button:last-child {
   background-color: rgb(6, 169, 0);
+}
+
+.cart__empty {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 2rem;
 }
 @media screen and (min-width: 400px) {
   .cart__item {

@@ -63,7 +63,7 @@ const ProductDetail = () => {
   function handleCartClick(): void {
     setShoppingCart((prev: ShoppingCart) => {
       if (prev[propId]) {
-        let qty = prev[id].quantity + quantity;
+        let qty = prev[propId].quantity + quantity;
 
         return {
           ...prev,
