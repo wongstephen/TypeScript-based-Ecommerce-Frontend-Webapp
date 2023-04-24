@@ -16,6 +16,7 @@ Gearguide is a e-commerce website app built with React and TypeScript. It utiliz
 - CSS grid
 - BEM CSS methodology
 - Fetch API
+- Vite
 
 ## Installation
 
