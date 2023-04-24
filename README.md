@@ -33,6 +33,12 @@ Backend CMS
 - Open the app in your browser at http://localhost:5173/ or https://gearguide.netlify.app/
 - Browse products and add items to your cart
 
+## SCREENSHOTS
+
+<img src="./public/assets/screenshots/FireShot%20Capture%20072%20-%20Gear%20Guide%20-%20localhost.png" />
+
+<img src="./public/assets/screenshots/Web%20capture_24-4-2023_164844_localhost.jpeg" />
+
 ## Credits
 
 This app was created by Stephen Wong as a project for to demonstrate React Library with Typscript and reponsiveness.
